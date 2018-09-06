@@ -17,6 +17,7 @@ public abstract class Entity {
         this.handler = handler;
     }
 
+
     public int getxPos() {
         return xPos;
     }

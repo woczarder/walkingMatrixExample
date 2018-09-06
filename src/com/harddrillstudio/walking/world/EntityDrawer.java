@@ -6,7 +6,8 @@ import java.util.ArrayList;
 
 public class EntityDrawer {
 
-    public void updateTiles(World world, ArrayList<Entity> entities) {
+
+    public void updateTiles(WorldMap worldMap, ArrayList<Entity> entities) {
 
         int x, y;
         String b;
@@ -15,8 +16,11 @@ public class EntityDrawer {
             y = e.getyPos();
             b = e.getBody();
 
-            world.setTile(x, y, b);
+            worldMap.setTile(x, y, b);
         }
 
     }
+
+
+
 }

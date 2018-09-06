@@ -29,6 +29,7 @@ public class Game {
 
 
     public Game() {
+        initAssets();
         init();
 
         Scanner scanner = new Scanner(System.in);
@@ -40,6 +41,14 @@ public class Game {
             handler.setChoice(scanner.nextLine());
         }
     }
+
+
+
+    private void initAssets() {
+
+    }
+
+
 
     private void init() {
         handler = new Handler(this);

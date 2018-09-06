@@ -19,10 +19,10 @@ public class Player extends Entity {
         if (handler.getChoice() == null)
             return;
 
-        if (handler.getChoice().equals("j")) {xPos--;}
-        if (handler.getChoice().equals("l")) {xPos++;}
-        if (handler.getChoice().equals("i")) {yPos++;}
-        if (handler.getChoice().equals("k")) {yPos--;}
+        if (handler.getChoice().equals("j") || handler.getChoice().equals("4")) {xPos--;}
+        if (handler.getChoice().equals("l") || handler.getChoice().equals("6")) {xPos++;}
+        if (handler.getChoice().equals("i") || handler.getChoice().equals("8")) {yPos++;}
+        if (handler.getChoice().equals("k") || handler.getChoice().equals("2")) {yPos--;}
     }
 
 
