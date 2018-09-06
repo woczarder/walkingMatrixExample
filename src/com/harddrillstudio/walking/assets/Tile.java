@@ -8,8 +8,9 @@ public abstract class Tile {
 
 
     public static Tile[] tiles = new Tile[256];
-    public static Tile floorTile = new FloorTile(0, false);
-    public static Tile wallTile = new WallTile(0, true);
+    public static Tile voidTile = new VoidTile(0, true);
+    public static Tile floorTile = new FloorTile(1, false);
+    public static Tile wallTile = new WallTile(2, true);
 
 
 

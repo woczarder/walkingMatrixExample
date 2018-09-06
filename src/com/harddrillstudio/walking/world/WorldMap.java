@@ -11,26 +11,22 @@ public class WorldMap {
     private int height = 8;
 
     private String[][] tiles;
-
+    private MapMatrix mapMatrix;
 
 
 
     public WorldMap() {
 
         tiles = new String[width][height];
+        mapMatrix = new MapMatrix();
 
         fillMapWithDots();
-
-        try {
-            loadMap("world1.txt");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 
     public void update() {
-        fillMapWithDots();
+//        fillMapWithDots();
+        tiles = mapMatrix.getStringTiles();
     }
 
 
@@ -59,23 +55,5 @@ public class WorldMap {
 
     }
 
-
-    private void loadMap(String filename) throws IOException {
-        File mapFile = new File("res/"+filename);
-
-        int longestLineLength = 0;
-
-        BufferedReader br = new BufferedReader(new FileReader(mapFile));
-
-        String tmpLn;
-        while ((tmpLn = br.readLine()) != null) {
-            System.out.println(tmpLn);
-
-            if (longestLineLength < tmpLn.length())
-                longestLineLength = tmpLn.length();
-        }
-
-        System.out.println("Longest line: " + longestLineLength);
-    }
 
 }
