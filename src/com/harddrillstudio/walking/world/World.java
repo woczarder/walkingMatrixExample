@@ -18,10 +18,11 @@ public class World {
 
         this.handler = handler;
 
+        worldMap = new WorldMap();
+
         entityManager = new EntityManager(handler);
         entityDrawer = new EntityDrawer();
 
-        worldMap = new WorldMap();
     }
 
 
@@ -43,5 +44,7 @@ public class World {
     }
 
 
-
+    public WorldMap getWorldMap() {
+        return worldMap;
+    }
 }

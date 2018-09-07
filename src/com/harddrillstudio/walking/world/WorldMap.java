@@ -1,14 +1,9 @@
 package com.harddrillstudio.walking.world;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-
 public class WorldMap {
 
-    private int width = 8;
-    private int height = 8;
+    private int width;
+    private int height;
 
     private String[][] tiles;
     private MapMatrix mapMatrix;
@@ -17,15 +12,16 @@ public class WorldMap {
 
     public WorldMap() {
 
-        tiles = new String[width][height];
         mapMatrix = new MapMatrix();
+        width = mapMatrix.getWidth();
+        height = mapMatrix.getHeight();
 
-        fillMapWithDots();
+        tiles = new String[width][height];
+
     }
 
 
     public void update() {
-//        fillMapWithDots();
         tiles = mapMatrix.getStringTiles();
     }
 
@@ -33,7 +29,7 @@ public class WorldMap {
     public void render() {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                System.out.print(tiles[x][height - 1 - y]);
+                System.out.print(tiles[x][y]);
             }
             System.out.println();
         }
@@ -45,15 +41,15 @@ public class WorldMap {
     }
 
 
-    public void fillMapWithDots() {
-
-        for (int x = 0; x < width; x++) {
-            for (int y = 0; y < height; y++) {
-                tiles[x][y] = ".";
-            }
-        }
-
+    public MapMatrix getMapMatrix() {
+        return mapMatrix;
     }
 
+    public int getWidth() {
+        return width;
+    }
 
+    public int getHeight() {
+        return height;
+    }
 }

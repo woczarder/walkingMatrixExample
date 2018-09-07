@@ -39,6 +39,7 @@ public class Game {
             render();
 
             handler.setChoice(scanner.nextLine());
+            System.out.println();
         }
     }
 
@@ -53,6 +54,7 @@ public class Game {
     private void init() {
         handler = new Handler(this);
         world = new World(handler);
+        handler.setWorld(world);
     }
 
 

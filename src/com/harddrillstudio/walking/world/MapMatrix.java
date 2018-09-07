@@ -2,21 +2,24 @@ package com.harddrillstudio.walking.world;
 
 import com.harddrillstudio.walking.assets.Tile;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
 
 public class MapMatrix {
 
     private Tile[][] tiles;
+    private int width, height;
+    private String filename;
 
 
     public MapMatrix() {
-        tiles = new Tile[8][8];
 
+        filename = "world1";
         try {
-            loadMap("world1.txt");
+            setDimensions(filename);
+
+            tiles = new Tile[width][height];
+
+            loadMap(filename);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -24,54 +27,92 @@ public class MapMatrix {
 
 
     public String[][] getStringTiles() {
-        String[][] tiles2 = new String[8][8];
+        String[][] tilesTmp = new String[width][height];
 
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                if (tiles[x][y].equals(Tile.voidTile)) {tiles2[x][y] = " ";}
-                if (tiles[x][y].equals(Tile.floorTile)) {tiles2[x][y] = ".";}
-                if (tiles[x][y].equals(Tile.wallTile)) {tiles2[x][y] = "#";}
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (tiles[x][y].equals(Tile.voidTile)) {tilesTmp[x][y] = "\u00a0";}
+                if (tiles[x][y].equals(Tile.floorTile)) {tilesTmp[x][y] = ".";}
+                if (tiles[x][y].equals(Tile.wallTile)) {tilesTmp[x][y] = "#";}
             }
         }
 
-        return tiles2;
+        return tilesTmp;
     }
 
 
     private void loadMap(String filename) throws IOException {
-        File mapFile = new File("res/"+filename);
 
-        String[] tiles = new String[8];
-        String[][] tiles2 = new String[8][8];
+        String[] allLines  = getAllLines(filename);
+
+        String[][] allChars = getAllChars(allLines);
+
+        for (int x = 0; x < width; x++) {
+            for (int y = 0; y < height; y++) {
+                if (allChars[y][x].equals("`")) {this.tiles[x][y] = Tile.voidTile;}
+                if (allChars[y][x].equals("a")) {this.tiles[x][y] = Tile.floorTile;}
+                if (allChars[y][x].equals("#")) {this.tiles[x][y] = Tile.wallTile;}
+
+            }
+        }
+
+    }
+
+    private String[] getAllLines(String filename) throws IOException {
+        File mapFile = new File("res/"+filename+".txt");
+        String[] allLines = new String[height];
 
         BufferedReader br = new BufferedReader(new FileReader(mapFile));
 
         String tmpLn; int lineNo = 0;
         while ((tmpLn = br.readLine()) != null) {
 
-            tiles[lineNo] = tmpLn;
+            allLines[lineNo] = tmpLn;
             lineNo++;
         }
 
-        for (int x = 0; x < 8; x++) {
-//            System.out.println(tiles[x]);
-            String[] tmpArr = tiles[x].split("");
-            for (int y = 0; y < 8; y++) {
-                tiles2[x][y] = tmpArr[y];
-            }
-        }
-
-        for (int x = 0; x < 8; x++) {
-            for (int y = 0; y < 8; y++) {
-                System.out.print(tiles2[x][y]);
-                if (tiles2[x][y].equals("`")) {this.tiles[x][y] = Tile.voidTile;}
-                if (tiles2[x][y].equals("a")) {this.tiles[x][y] = Tile.floorTile;}
-                if (tiles2[x][y].equals("#")) {this.tiles[x][y] = Tile.wallTile;}
-
-            }
-            System.out.println();
-        }
-
+        return allLines;
     }
 
+    private String[][] getAllChars(String[] allLines) {
+        String[][] allLetters = new String[height][width];
+
+        for (int y = 0; y < height; y++) {
+            String[] tmpArr = allLines[y].split("");
+            for (int x = 0; x < width; x++) {
+                allLetters[y][x] = tmpArr[x];
+            }
+        }
+        return allLetters;
+    }
+
+    private void setDimensions(String filename) throws IOException {
+        File mapFile = new File("res/"+filename+"data.txt");
+
+        BufferedReader br = new BufferedReader(new FileReader(mapFile));
+
+        String[] allLines = new String[2];
+        String tmpLn; int lineNo = 0;
+        while ((tmpLn = br.readLine()) != null) {
+
+            allLines[lineNo] = tmpLn;
+            lineNo++;
+        }
+
+
+        this.width = Integer.parseInt(allLines[0]);
+        this.height = Integer.parseInt(allLines[1]);
+    }
+
+    public Tile getTile(int x, int y) {
+        return tiles[x][y];
+    }
+
+    public int getWidth() {
+        return width;
+    }
+
+    public int getHeight() {
+        return height;
+    }
 }
