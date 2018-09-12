@@ -1,8 +1,0 @@
-`aaaaaaaaaaaaaaaaa
-``##a##aaaaaaaaaaa
-``#aa#aaaaaaaaaaaa
-a#aa#aaaaaaaaaaaaa
-a####aaaaaaaaaaaaa
-aaaaaaaaaaaaaaaaaa
-``aaaaaaaaaaaaaaaa
-```aa``aaaaaaaaaaa

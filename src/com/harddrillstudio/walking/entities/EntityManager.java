@@ -1,6 +1,7 @@
 package com.harddrillstudio.walking.entities;
 
 import com.harddrillstudio.walking.Handler;
+import com.harddrillstudio.walking.entities.actors.Player;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,9 @@ public class EntityManager {
     }
 
     public void update() {
-        player.update();
+        for (Entity e: entities) {
+            e.update();
+        }
     }
 
     public void addEntity(Entity entity) {

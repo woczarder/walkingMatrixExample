@@ -1,12 +1,14 @@
 package com.harddrillstudio.walking;
 
 import com.harddrillstudio.walking.world.World;
+import com.harddrillstudio.walking.world.map.WorldMap;
 
 public class Handler {
 
     private String choice;
     private Game game;
     private World world;
+    private WorldMap worldMap;
 
 
     public Handler(Game game) {
@@ -19,6 +21,14 @@ public class Handler {
 
     public void setWorld(World world) {
         this.world = world;
+    }
+
+    public WorldMap getWorldMap() {
+        return worldMap;
+    }
+
+    public void setWorldMap(WorldMap worldMap) {
+        this.worldMap = worldMap;
     }
 
     public String getChoice() {
