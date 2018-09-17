@@ -15,7 +15,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class Game extends Application {
+public class Game extends Application implements Runnable{
 
     private Group root;
     private Scene theScene;
@@ -24,10 +24,16 @@ public class Game extends Application {
     private Handler handler;
     private World world;
 
+    private Input input;
+
+    private GraphicsContext graphicsContext;
+
 
 
     public Game() {
-        initAssets();
+        Assets.init();
+        input = new Input();
+
         handler = new Handler(this);
         world = new World(handler);
         handler.setWorld(world);
@@ -38,14 +44,14 @@ public class Game extends Application {
     }
 
     private void render(GraphicsContext gc) {
-//        gc.setStroke(Color.BLACK);
-//        gc.fillRect(0, 0, 100, 100);
         world.render(gc);
     }
 
 
+
+
     @Override
-    public void start(Stage theStage) throws Exception {
+    public void start(Stage theStage) {
 
         initStage();
         theStage.setScene(theScene);
@@ -55,19 +61,19 @@ public class Game extends Application {
 
         // keyboard
 
-        ArrayList<String> input = new ArrayList<String>();
-        theScene.setOnKeyPressed(
+        ArrayList<String> input = new ArrayList<>();
+
+        theScene.setOnKeyPressed (Input.eventtt);
+
+        theScene.setOnKeyTyped(
                 new EventHandler<KeyEvent>() {
                     @Override
                     public void handle(KeyEvent event) {
-                        String code = event.getCode().toString();
-
-                        if (!input.contains(code))
-                            input.add(code);
+//                        Thread.suspend();
                     }
                 }
         );
-        theScene.setOnKeyReleased(
+        theScene.setOnKeyReleased (
                 new EventHandler<KeyEvent>()
                 {
                     public void handle(KeyEvent e)
@@ -78,25 +84,18 @@ public class Game extends Application {
                 });
 
 
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        graphicsContext = canvas.getGraphicsContext2D();
 
         // loop
-        final long startNanoTime = System.nanoTime();
-
         new AnimationTimer() {
 
             @Override
             public void handle(long now) {
-                double t = (now - startNanoTime) / 1000000000.0;
 
-                gc.clearRect(0, 0, 800, 480);
+                graphicsContext.clearRect(0, 0, 800, 480);
                 update();
-                render(gc);
+                render(graphicsContext);
 
-
-                double x = 250 + 200 * Math.cos(t);
-                double y = 250 + 200 * Math.sin(t);
-                gc.fillText("IM FUKEN GAY!", x, y);
             }
         }.start();
 
@@ -104,17 +103,17 @@ public class Game extends Application {
         theStage.show();
     }
 
+
+
+
     private void initStage() {
         root = new Group();
         theScene = new Scene(root);
     }
 
-    private void initAssets() {
-        Assets.init();
-    }
 
+    @Override
+    public void run() {
 
-    public static void main(String[] args) {
-        launch(args);
     }
 }

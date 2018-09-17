@@ -27,7 +27,7 @@ public class World {
         worldMap2 = new WorldMap("world2");
         worldMap3 = new WorldMap("world3");
 
-        handler.setWorldMap(worldMap3);
+        handler.setWorldMap(worldMap2);
 
         entityManager = new EntityManager(handler);
         entityDrawer = new EntityDrawer();

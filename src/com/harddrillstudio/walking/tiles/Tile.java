@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 
 public abstract class Tile {
 
-    public static final int TILEWIDTH = 48, TILEHEIGHT = 48;
+    public static final int TILE_WIDTH = 48, TILE_HEIGHT = 48;
 
     private final int ID;
     public boolean isBlocking;
@@ -16,16 +16,16 @@ public abstract class Tile {
     public static Tile voidTile = new VoidTile(0, true);
     public static Tile floorTile = new FloorTile(1, false);
     public static Tile wallTile = new WallTile(2, true);
-    public static Tile doorTile = new WallTile(3, false);
+    public static Tile doorTile = new DoorTile(3, false);
 
 
     Tile(int id, boolean isBlocking) {
         ID = id;
         this.isBlocking = isBlocking;
-        this.texture = Assets.floorImage;
+        this.texture = Assets.voidImage;
     }
 
     public void render(GraphicsContext gc, int x, int y) {
-        gc.drawImage(this.texture, x, y, TILEWIDTH, TILEHEIGHT);
+        gc.drawImage(this.texture, x, y, TILE_WIDTH, TILE_HEIGHT);
     }
 }

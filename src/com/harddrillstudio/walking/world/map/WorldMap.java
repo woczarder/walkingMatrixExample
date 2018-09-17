@@ -27,7 +27,7 @@ public class WorldMap extends MapMatrix {
     public void render(GraphicsContext gc) {
         for (int y = 0; y < height; y++) {
             for (int x = 0; x < width; x++) {
-                getTile(x, y).render(gc, x*Tile.TILEWIDTH, y*Tile.TILEHEIGHT);
+                getTile(x, y).render(gc, x*Tile.TILE_WIDTH, y*Tile.TILE_HEIGHT);
             }
         }
     }
